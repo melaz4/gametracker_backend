@@ -23,6 +23,17 @@ mongoose.connect(MONGODB_URI)
   
 //espacio de endpoints
 
+//endpoint para agregar un nuevo juego
+app.post('/api/juegos', async (req,res) => {
+    try {
+    const nuevoJuego = new Juego(req.body);
+    const juegoGuardado = await nuevoJuego.save();
+    res.status(201).json(juegoGuardado);
+    }
+    catch (error) {
+      res.status(400).json({ error: 'Error al guardar el juego' });
+    }
+});
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
