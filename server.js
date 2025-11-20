@@ -56,6 +56,24 @@ app.get('/api/juegos/:id', async (req, res) => {
     }
 });
 
+//endpiont para editar un juego
+app.put('/api/juegos/:id', async (req, res) => {
+    try {
+        const juegoActualizado = await Juego.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true } // devuelve el actualizado
+        );
+
+        if (!juegoActualizado) return res.status(404).json({ error: 'Juego no encontrado' });
+
+        res.json(juegoActualizado);
+    } catch (error) {
+        res.status(400).json({ error: 'Error al actualizar el juego' });
+    }
+});
+
+
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
