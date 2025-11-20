@@ -35,6 +35,17 @@ app.post('/api/juegos', async (req,res) => {
     }
 });
 
+//endpoint para obtener todos los juegos
+app.get('/api/juegos', async (req, res) => {
+    try {
+        const juegos = await Juego.find();
+        res.json(juegos);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los juegos' });
+    }
+});
+
+
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 
