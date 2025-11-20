@@ -45,6 +45,17 @@ app.get('/api/juegos', async (req, res) => {
     }
 });
 
+//endpoint para obtener un juego por id
+app.get('/api/juegos/:id', async (req, res) => {
+    try {
+        const juego = await Juego.findById(req.params.id);
+        if (!juego) return res.status(404).json({ error: 'Juego no encontrado' });
+        res.json(juego);
+    } catch (error) {
+        res.status(400).json({ error: 'ID inválida' });
+    }
+});
+
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
