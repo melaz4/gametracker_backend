@@ -73,6 +73,18 @@ app.put('/api/juegos/:id', async (req, res) => {
     }
 });
 
+//endpoint para elimina un juego
+app.delete('/api/juegos/:id', async (req, res) => {
+    try {
+        const juegoEliminado = await Juego.findByIdAndDelete(req.params.id);
+
+        if (!juegoEliminado) return res.status(404).json({ error: 'Juego no encontrado' });
+
+        res.json({ mensaje: 'Juego eliminado correctamente' });
+    } catch (error) {
+        res.status(400).json({ error: 'Error al eliminar el juego' });
+    }
+});
 
 
 const PORT = 5000;
